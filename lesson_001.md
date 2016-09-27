@@ -117,27 +117,3 @@ Wiki: [Wiki](https://share.coursera.org/wiki/index.php/ML:Gradient_Descent)
     hθ(6) = -1 + 2 * 6
     hθ(6) = -1 + 12
     hθ(6) = 11
-
-
-# Linear algebra review
-Wiki: [Wiki](https://share.coursera.org/wiki/index.php/ML:Linear_Algebra_Review)
-
-## Matrix
-* Two dimensional array
-* Dimension of matrix: number of rows * number of columns
-*     # Example (3*2 matrix => matrix is an element of the set R3*2)
-      A = |122 877|
-          | 12 112|
-          |122   3|
-* Matrix elements: Aᵢⱼ refers to the element in the  i-th row in the j-th column of A (1-indexed)
-
-## Vector
-* A matrix with just one column (a n*1 matrix)
-*     # Example (4-dimensional vector)
-      y = |122|
-          | 12|
-          |122|
-          |  3|
-* yᵢ refers to the i-th element of y (1-indexed, but sometimes also 0-indexed)
-
-## Addition and scalar multiplication
