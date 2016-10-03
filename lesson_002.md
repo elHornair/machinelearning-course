@@ -20,7 +20,7 @@ Wiki: [Wiki](https://share.coursera.org/wiki/index.php/ML:Linear_Regression_with
 * Cost function: J(θ) = (1/2m) * ∑1..m(hθ(xⁱ) - yⁱ)²
 * Gradient descent general: Repeat:**θⱼ := θⱼ - 𝛼 * (d/dθⱼ) * J(θ)** (simultaneously update for
   every j = 0, ..., n)
-* Gradient descent concrete: Repeat:**θⱼ := θⱼ - 𝛼 * (1/m) * ∑1..m(hθ(xⁱ) - yⁱ) * xⱼⁱ** (j is the
+* Gradient descent concrete: Repeat:**θⱼ := θⱼ - 𝛼 * (1/m) * ∑i=1..m((hθ(xⁱ) - yⁱ) * xⱼⁱ)** (j is the
   index counting the features, i is the index counting the examples for the sum)
 
 ## Practical tricks
@@ -90,3 +90,14 @@ Wiki: [Wiki](https://share.coursera.org/wiki/index.php/ML:Linear_Regression_with
       range: 94 - 69 = 25
      
       x = (94 - 81) / 25 = 0.52
+
+
+##  Programming assignment:
+### How to calculate the cost function
+* J = 1/(2 * m) * sum((X * theta - y).^2)
+
+### Gradient descent as matrix operations
+* As we need to multiply the elements of each row of "X * theta - y" with their respective column
+  in X (the "inner loop" is for the examples), we just multiply everything with the transpose of X.
+  This takes care of building the sum at the same time
+* theta = theta - alpha * (1/m) * X' * (X * theta - y)
