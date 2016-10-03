@@ -79,3 +79,14 @@ Wiki: [Wiki](https://share.coursera.org/wiki/index.php/ML:Linear_Regression_with
  # Octave
  Octave Documentation: [Octave Documentation](https://www.gnu.org/software/octave/doc/interpreter/)
  Octave Tutorial: [Octave Tutorial](https://share.coursera.org/wiki/index.php/ML:Octave_Tutorial)
+
+
+##  Quiz:
+### Question 1
+      x = (x - avg) / range
+     
+      x = 94
+      avg: (89 + 72 + 94 + 69) / 4 = 324 / 4 = 81
+      range: 94 - 69 = 25
+     
+      x = (94 - 81) / 25 = 0.52
