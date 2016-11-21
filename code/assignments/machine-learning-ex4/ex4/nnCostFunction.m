@@ -60,10 +60,10 @@ for i = 1:m
 
     % feed forward algorithm
     a1 = X(i, :);
-    a1 = [ones(size(a1, 1), 1), a1];
+    a1 = [1, a1];
     z2 = a1*Theta1';
     a2 = sigmoid(z2);
-    a2 = [ones(size(a2, 1), 1), a2];
+    a2 = [1, a2];
     z3 = a2*Theta2';
     h = sigmoid(z3);
 
@@ -96,6 +96,52 @@ J = 1/m * cost + lambda / (2*m) * regularisationTerm;
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
+
+
+% initialise values
+d2 = zeros(m, size(Theta1, 1));
+d3 = zeros(m, size(Theta2, 1));
+z2 = zeros(m, size(Theta1, 1));
+Delta1 = zeros(hidden_layer_size, size(Theta1, 2));% TODO: the dimension of this might be wrong :/
+Delta2 = zeros(num_labels, hidden_layer_size + 1);% TODO: the dimension of this might be wrong :/
+
+% looping through examples
+for t = 1:m
+    % initialisations
+    currentY = Y(:, t);
+
+    % feed forward algorithm
+    a1 = [1, X(t, :)];
+    z2(t, :) = a1*Theta1';
+    a2(t, :) = [1, sigmoid(z2(t, :))];
+    z3 = a2*Theta2';
+    a3 = sigmoid(z3);
+
+    % beginning of the backpropagation algorithm
+    for k = 1:num_labels% looping through labels for calculating d3
+        d3(t, k) = a3(t, k) - currentY(k);
+    endfor
+
+    d2(t, :) = d3(t, :)*Theta2(:, 2:end) .* sigmoidGradient(z2(t, :));% calculating d2
+
+    % calculating Delta1
+    for j = 1:size(a1, 2)
+        for i = 1:size(d2(t, :), 2)
+            Delta1(i, j) = Delta1(i, j) + a1(j)* d2(t, i);
+        endfor
+    endfor
+
+    % calculating Delta2
+    for j = 1:size(a2(t, :), 2)
+        for i = 1:size(d3(t, :), 2)
+            Delta2(i, j) = Delta2(i, j) + a2(t, j)* d3(t, i);
+        endfor
+    endfor
+endfor
+
+Theta1_grad = Delta1 / m;
+Theta2_grad = Delta2 / m;
+
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
@@ -105,23 +151,12 @@ J = 1/m * cost + lambda / (2*m) * regularisationTerm;
 %               and Theta2_grad from Part 2.
 %
 
+% regularisation (set first column to zeroes, as those are the bias terms and they should not be regularised)
+Theta1(:, 1) = 0;
+Theta1_grad = Theta1_grad + (lambda/m) * Theta1;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Theta2(:, 1) = 0;
+Theta2_grad = Theta2_grad + ((lambda/m) * Theta2);
 
 % -------------------------------------------------------------
 
