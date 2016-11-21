@@ -39,14 +39,15 @@ error_val = zeros(length(lambda_vec), 1);
 %
 %
 
+for i = 1:length(lambda_vec)
+   theta = trainLinearReg(X, y, lambda_vec(i));% we use lambda in the regression
 
+   [J_train, grad_train] = linearRegCostFunction(X, y, theta, 0);% we don't use lambda in the error calculation
+   [J_val, grad_val] = linearRegCostFunction(Xval, yval, theta, 0);% we don't use lambda in the error calculation
 
-
-
-
-
-
-
+    error_train(i) = J_train;
+    error_val(i) = J_val;
+end
 
 % =========================================================================
 
